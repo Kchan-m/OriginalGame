@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     public float jumpPower = 280f;
     public float defaultJumpPower = 280f;
     private int jumpCount = 0;
-    public static float spirit = 100;
-    public static float maxSpirit = 100;
+    public static float maxSpirit = 100f;
+    public static float spirit = maxSpirit;
     public Slider slider;
 
     Rigidbody2D playerRigidbody;
@@ -20,8 +20,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         ScoreCalculator.gameClear = false;
-        spirit = 100;
-        slider.value = 1;
         playerRigidbody = this.GetComponent<Rigidbody2D>();
         if (GameRetry.beforeSceneName == "Stage1")
         {
@@ -33,13 +31,13 @@ public class Player : MonoBehaviour
         {
             InvokeRepeating("DecreaseSpiritLevel3", 0, 1);
         }
-        
+        spirit = maxSpirit;
+        slider.value = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(spirit);
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount == 0)
         {
             playerRigidbody.AddForce(transform.up * jumpPower);
@@ -94,6 +92,13 @@ public class Player : MonoBehaviour
             slider.value = spirit / maxSpirit;
             ScoreCalculator.itemCount++;
             Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Rival"))
+        {
+            ScoreCalculator.rivalCounter++;
+            spirit -= 10;
+            slider.value = spirit / maxSpirit;
         }
     }
 

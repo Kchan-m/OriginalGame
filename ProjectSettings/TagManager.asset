@@ -7,6 +7,7 @@ TagManager:
   - Stage
   - Item
   - Oshi
+  - Rival
   layers:
   - Default
   - TransparentFX

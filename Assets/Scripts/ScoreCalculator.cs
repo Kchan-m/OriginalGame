@@ -6,12 +6,13 @@ using UnityEngine.SceneManagement;
 public class ScoreCalculator : MonoBehaviour
 {
     public static int itemCount = 0;
+    public static int rivalCounter = 0;
     public static float startTime;
     public static float endTime;
     public static bool gameClear = false;
+    public static float score;
     private float elapsedTime;
     private float standardTime = 100f;
-    private float score;
 
     // Start is called before the first frame update
     void Start()
@@ -30,11 +31,10 @@ public class ScoreCalculator : MonoBehaviour
         elapsedTime = startTime - endTime;
         if (gameClear)
         {
-            score = 1000 * (standardTime - elapsedTime) + 10000 * itemCount;
+            score = (1000 * (standardTime - elapsedTime) + 10000 * itemCount) - 20000 * rivalCounter;
         } else
         {
-            score = 10000 * itemCount;
+            score = 10000 * itemCount - 20000 * rivalCounter;
         }
-        Debug.Log(score);
     }
 }
