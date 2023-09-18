@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     public float jumpPower = 280f;
     public float defaultJumpPower = 280f;
     private int jumpCount = 0;
-    private float spirit = 100;
-    private float maxSpirit = 100;
+    public static float spirit = 100;
+    public static float maxSpirit = 100;
     public Slider slider;
 
     Rigidbody2D playerRigidbody;
@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ScoreCalculator.gameClear = false;
         slider.value = 1;
         playerRigidbody = this.GetComponent<Rigidbody2D>();
         InvokeRepeating("DecreaseSpirit", 0, 1);
@@ -40,11 +41,13 @@ public class Player : MonoBehaviour
 
         if (this.gameObject.transform.position.y <= -20f)
         {
+            ScoreCalculator.endTime = Time.time;
             SceneManager.LoadScene("GameOver");
         }
 
         if (spirit <= 0)
         {
+            ScoreCalculator.endTime = Time.time;
             SceneManager.LoadScene("GameOver");
         }
     }
@@ -64,7 +67,9 @@ public class Player : MonoBehaviour
 
         if (other.gameObject.CompareTag("Oshi"))
         {
+            ScoreCalculator.endTime = Time.time;
             SceneManager.LoadScene("GameClear");
+            ScoreCalculator.gameClear = true;
         }
     }
 
@@ -75,6 +80,7 @@ public class Player : MonoBehaviour
             if (spirit > maxSpirit - 10) spirit = maxSpirit;
             else spirit += 10;
             slider.value = spirit / maxSpirit;
+            ScoreCalculator.itemCount++;
             Destroy(collision.gameObject);
         }
     }
