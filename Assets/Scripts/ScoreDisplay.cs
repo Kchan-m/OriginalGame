@@ -14,7 +14,7 @@ public class ScoreDisplay : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        scoreText.text = "Score : " + Mathf.Floor(ScoreCalculator.score);
+        scoreText.text = Mathf.Floor(ScoreCalculator.score).ToString();
         sumScore = PlayerPrefs.GetInt("SUMSCORE", 0);
         sumScore += (int)ScoreCalculator.score;
         PlayerPrefs.SetInt("SUMSCORE", sumScore);
