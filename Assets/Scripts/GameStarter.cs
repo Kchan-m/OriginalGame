@@ -37,4 +37,14 @@ public class GameStarter : MonoBehaviour
         GameRetry.beforeSceneName = "Stage3";
         ScoreCalculator.startTime = Time.time;
     }
+
+   public void OnClickDescriptionButton()
+    {
+        SceneManager.LoadScene("Description");
+    }
+
+    public void OnClickBackButton()
+    {
+        SceneManager.LoadScene("Title");
+    }
 }
