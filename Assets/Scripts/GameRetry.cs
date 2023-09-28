@@ -18,6 +18,20 @@ public class GameRetry : MonoBehaviour
         
     }
 
+    public void OnClickNextButton()
+    {
+        if (beforeSceneName == "Stage1")
+        {
+            beforeSceneName = "Stage2";
+            SceneManager.LoadScene("Stage2");
+        }
+        else if (beforeSceneName == "Stage2")
+        {
+            beforeSceneName = "Stage3";
+            SceneManager.LoadScene("Stage3");
+        }
+    }
+
     public void OnClickRetryButton()
     {
         SceneManager.LoadScene(beforeSceneName);

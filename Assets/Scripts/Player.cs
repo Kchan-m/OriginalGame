@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public static float maxSpirit = 100f;
     public static float spirit = maxSpirit;
     public Slider slider;
+    public AudioClip jumpOne;
+    public AudioClip jumpTwo;
 
     Rigidbody2D playerRigidbody;
 
@@ -41,11 +43,13 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount == 0)
         {
             playerRigidbody.AddForce(transform.up * jumpPower);
+            GetComponent<AudioSource>().PlayOneShot(jumpOne);
             jumpCount++;
         } else if (Input.GetKeyDown(KeyCode.Space) && jumpCount == 1)
         {
             jumpPower = 200f;
             playerRigidbody.AddForce(transform.up * jumpPower);
+            GetComponent<AudioSource>().PlayOneShot(jumpTwo);
             jumpCount++;
         }
 
@@ -78,8 +82,15 @@ public class Player : MonoBehaviour
         if (other.gameObject.CompareTag("Oshi"))
         {
             ScoreCalculator.endTime = Time.time;
-            SceneManager.LoadScene("GameClear");
             ScoreCalculator.gameClear = true;
+
+            if (GameRetry.beforeSceneName == "Stage1" || GameRetry.beforeSceneName == "Stage2")
+            {
+                SceneManager.LoadScene("GameClear_N");
+            } else if (GameRetry.beforeSceneName == "Stage3")
+            {
+                SceneManager.LoadScene("GameClear_R");
+            }
         }
     }
 
