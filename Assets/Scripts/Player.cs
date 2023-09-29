@@ -13,14 +13,14 @@ public class Player : MonoBehaviour
     public static float maxSpirit = 100f;
     public static float spirit = maxSpirit;
     public Slider slider;
-    public AudioClip jumpOne;
-    public AudioClip jumpTwo;
+    public GameObject gameManager;
 
     Rigidbody2D playerRigidbody;
 
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.Find("GameManager");
         ScoreCalculator.gameClear = false;
         playerRigidbody = this.GetComponent<Rigidbody2D>();
         if (GameRetry.beforeSceneName == "Stage1")
@@ -43,25 +43,27 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && jumpCount == 0)
         {
             playerRigidbody.AddForce(transform.up * jumpPower);
-            GetComponent<AudioSource>().PlayOneShot(jumpOne);
             jumpCount++;
+            gameManager.GetComponent<Se>().Jump1();
         } else if (Input.GetKeyDown(KeyCode.Space) && jumpCount == 1)
         {
             jumpPower = 200f;
+            gameManager.GetComponent<Se>().Jump2();
             playerRigidbody.AddForce(transform.up * jumpPower);
-            GetComponent<AudioSource>().PlayOneShot(jumpTwo);
             jumpCount++;
         }
 
         if (this.gameObject.transform.position.y <= -20f)
         {
             ScoreCalculator.endTime = Time.time;
+            gameManager.GetComponent<Se>().GameOver();
             SceneManager.LoadScene("GameOver");
         }
 
         if (spirit <= 0)
         {
             ScoreCalculator.endTime = Time.time;
+            gameManager.GetComponent<Se>().GameOver();
             SceneManager.LoadScene("GameOver");
         }
     }
@@ -86,9 +88,11 @@ public class Player : MonoBehaviour
 
             if (GameRetry.beforeSceneName == "Stage1" || GameRetry.beforeSceneName == "Stage2")
             {
+                gameManager.GetComponent<Se>().GameClear();
                 SceneManager.LoadScene("GameClear_N");
             } else if (GameRetry.beforeSceneName == "Stage3")
             {
+                gameManager.GetComponent<Se>().GameClear();
                 SceneManager.LoadScene("GameClear_R");
             }
         }
@@ -102,6 +106,7 @@ public class Player : MonoBehaviour
             else spirit += 10;
             slider.value = spirit / maxSpirit;
             ScoreCalculator.itemCount++;
+            gameManager.GetComponent<Se>().Getitem();
             Destroy(collision.gameObject);
         }
 

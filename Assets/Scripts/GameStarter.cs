@@ -21,6 +21,8 @@ public class GameStarter : MonoBehaviour
     {
         SceneManager.LoadScene("Stage1");
         GameRetry.beforeSceneName = "Stage1";
+        ScoreCalculator.itemCount = 0;
+        ScoreCalculator.rivalCounter = 0;
         ScoreCalculator.startTime = Time.time;
     }
 
@@ -28,6 +30,8 @@ public class GameStarter : MonoBehaviour
     {
         SceneManager.LoadScene("Stage2");
         GameRetry.beforeSceneName = "Stage2";
+        ScoreCalculator.itemCount = 0;
+        ScoreCalculator.rivalCounter = 0;
         ScoreCalculator.startTime = Time.time;
     }
 
@@ -35,6 +39,8 @@ public class GameStarter : MonoBehaviour
     {
         SceneManager.LoadScene("Stage3");
         GameRetry.beforeSceneName = "Stage3";
+        ScoreCalculator.itemCount = 0;
+        ScoreCalculator.rivalCounter = 0;
         ScoreCalculator.startTime = Time.time;
     }
 

@@ -5,6 +5,7 @@ using UnityEngine;
 public class Bgm : MonoBehaviour
 {
     public static Bgm instance;
+    
 
     private void Awake()
     {
@@ -30,4 +31,6 @@ public class Bgm : MonoBehaviour
     {
         
     }
+
+    
 }

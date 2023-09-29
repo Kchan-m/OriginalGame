@@ -23,10 +23,14 @@ public class GameRetry : MonoBehaviour
         if (beforeSceneName == "Stage1")
         {
             beforeSceneName = "Stage2";
+            ScoreCalculator.itemCount = 0;
+            ScoreCalculator.rivalCounter = 0;
             SceneManager.LoadScene("Stage2");
         }
         else if (beforeSceneName == "Stage2")
         {
+            ScoreCalculator.itemCount = 0;
+            ScoreCalculator.rivalCounter = 0;
             beforeSceneName = "Stage3";
             SceneManager.LoadScene("Stage3");
         }
@@ -34,6 +38,8 @@ public class GameRetry : MonoBehaviour
 
     public void OnClickRetryButton()
     {
+        ScoreCalculator.itemCount = 0;
+        ScoreCalculator.rivalCounter = 0;
         SceneManager.LoadScene(beforeSceneName);
     }
 
